@@ -16,13 +16,23 @@ services:
       - backend
     restart: unless-stopped
 
-  backend:
+  backend/router:
     build:
       context: ./
       dockerfile: ./backend/Dockerfile
-    volumes:
-      - usercontent:/app/usercontent/
-      - ./backend/config:/app/config
+    env_file:
+      - backend/.env
+    networks:
+      - internal
+    depends_on:
+      - redis
+      - mongo
+    restart: unless-stopped
+
+  backend/cinema:
+    build:
+      context: ./
+      dockerfile: ./backend/services/cinema/Dockerfile
     env_file:
       - backend/.env
     networks:
@@ -52,4 +62,3 @@ networks:
 
 volumes:
   mongo_data:
-  usercontent:
