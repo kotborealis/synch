@@ -1,0 +1,41 @@
+{
+  "name": "pavellc",
+  "version": "3.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kotborealis/pavellc.git",
+  "author": "kotborealis <kotborealis@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack/webpack.config.js --color --mode development",
+    "clear-dist": "node clear-dist.js",
+    "build": "npm run-script clear-dist && npm run-script build:webpack",
+    "build:webpack": "webpack --config webpack/webpack.config.js --progress --colors --env.prod --mode production"
+  },
+  "dependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/preset-react": "^7.6.3",
+    "@material-ui/core": "^4.9.9",
+    "ass.js": "github:kotborealis/ASS",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "glob": "^7.1.2",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.2.0",
+    "less": "^2.7.3",
+    "less-loader": "^4.1.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router": "^3.0.0",
+    "reconnecting-websocket": "^3.0.2",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "unified": "^6.1.5",
+    "unist-util-visit": "^1.1.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

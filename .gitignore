@@ -1,0 +1,9 @@
+!.gitkeep
+
+node_modules/
+../pavellc/.idea/
+*.sublime-*
+
+*.env
+
+!.idea/
