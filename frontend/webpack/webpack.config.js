@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const mockApi = require('../mock-api');
 
@@ -62,7 +61,18 @@ module.exports = (env = {prod: false}) => {
                 },
                 {
                     test: /\.less$/,
-                    use: ['style-loader', 'css-loader', 'less-loader'],
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                            },
+                        },
+                        {
+                            loader: 'less-loader',
+                        }
+                    ],
                 },
                 {
                     test: /\.css/,

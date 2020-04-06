@@ -5,12 +5,6 @@ class ServiceRequest {
     data;
     msg_id;
 
-    // client.id alias
-    id;
-
-    // client.user alias
-    user;
-
     /**
      *
      * @param {Service} service Service instance

@@ -1,23 +1,42 @@
 import React from 'react';
 import {render} from 'react-dom';
-import ReconnectingWebsocket from 'reconnecting-websocket';
-import Storage from './lib/Storage';
-import API from './lib/api';
+import {BrowserRouter, matchPath, Route, Switch, withRouter} from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import './api';
+import {ViewOnboarding} from './views/Onboarding/Onboarding';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {ViewRoomLobby} from './views/Room/Lobby/Lobby';
+import {ViewRoomWatch} from './views/Room/Watch/Watch';
 
-const protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+const RouterRoot = ({children}) => {
+    return (
+        <BrowserRouter basename={process.env.PUBLIC_PATH}>
+            <Switch>
+                {children}
+            </Switch>
+        </BrowserRouter>
+    );
+};
 
-const url = `${protocol}://${location.host}/ws.lc/`;
-console.warn(`connecting to ${url}`);
+const Routes = () => {
+    return (<>
+        <Route exact path="/"><ViewOnboarding/></Route>
+        <Route path="/room/:roomId/lobby"><ViewRoomLobby/></Route>
+        <Route path="/room/:roomId/watch"><ViewRoomWatch/></Route>
+    </>);
+};
 
-const ws = new ReconnectingWebsocket(url);
-
-const api = new API(ws);
-
-window.api = api;
-
-export default api;
+const theme = createMuiTheme({
+    palette: {
+        type: 'dark'
+    }
+});
 
 render(
-    `Hello world!`,
+    <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterRoot><Routes/></RouterRoot>
+    </ThemeProvider>,
     document.getElementById('App')
 );
