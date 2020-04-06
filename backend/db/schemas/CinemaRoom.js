@@ -23,7 +23,7 @@ const CinemaRoomScheme = mongoose.Schema({
     },
 
     clients: {
-        type: [[String]],
+        type: [String],
         require: false
     },
 

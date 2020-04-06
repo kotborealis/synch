@@ -81,7 +81,6 @@ class Service {
      * @param target_id
      */
     emit(event, data, target_id = undefined) {
-        console.log("emit to", target_id);
         if(target_id !== undefined){
             if(this.clients.has(target_id)){
                 this.clients.get(target_id).emit(event, data);

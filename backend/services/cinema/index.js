@@ -40,7 +40,7 @@ module.exports = function(config) {
 
         if(room.playback_started === 0) {
             room.playback_started = Date.now();
-            room.clients.forEach(([id]) => service.emit('playback', room, id));
+            syncRoom(room);
             await room.save();
         }
 
@@ -53,11 +53,14 @@ module.exports = function(config) {
         room.stream_start = room.time;
         room.playback_started = 0;
 
-        room.clients.forEach(([id]) => service.emit('playback', room, id));
+        syncRoom(room);
         await room.save();
 
         req.status();
     }
+
+    const syncRoom = room =>
+        room.clients.map(id => service.emit('playback', room, id));
 
     const service = new Service({
         config,
