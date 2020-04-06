@@ -3,7 +3,8 @@ import React, {useEffect, useState, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 import api from '../../../api';
 import {useSubtitles} from '../../../lib/SubtitlesManager';
-import styles from './Watch.less';
+import styles from './styles.less';
+import {Controls} from './Controls';
 
 export const ViewRoomWatch = () => {
     const {roomId} = useParams();
@@ -22,30 +23,32 @@ export const ViewRoomWatch = () => {
     }, []);
 
     useEffect(() => {
-        api.send('cinema', 'join', roomId);
-        api.send('cinema', 'get', roomId).then(room => {
+        api.send('cinema', 'join', {room: roomId});
+        api.send('cinema', 'get', {room: roomId}).then(room => {
             setRoom(room);
         });
-        return () => api.send('cinema', 'leave', roomId);
+        return () => api.send('cinema', 'leave', {room: roomId});
     }, []);
 
-    const onPlay = () => api.send('cinema', 'play', roomId);
-    const onPause = () => api.send('cinema', 'pause', roomId);
+    const onPlay = () => api.send('cinema', 'play', {room: roomId});
+    const onPause = () => api.send('cinema', 'pause', {room: roomId});
+    const onSeek = (time) => api.send('cinema', 'seekTo', {room: roomId, time});
 
 
     return (
-        <div className={styles.cinemaVideoContainer}>
+        <div className={styles.videoContainer}>
             <video
                 ref={video}
                 preload="auto"
                 src={room.stream}
             />
-            <Button variant="contained" color="primary" onClick={onPlay}>
-                Play
-            </Button>
-            <Button variant="contained" color="primary" onClick={onPause}>
-                Pause
-            </Button>
+            <Controls
+                video={video}
+                room={room}
+                onPause={onPause}
+                onPlay={onPlay}
+                onSeek={onSeek}
+            />
         </div>
     );
 };

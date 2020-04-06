@@ -1,4 +1,4 @@
-.cinemaVideoContainer, .cinemaVideoContainer video {
+.videoContainer, .videoContainer video {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,6 +9,25 @@
   width: 100%;
   height: 100%;
   z-index: 1900;
+}
+
+.controls {
+  z-index: 2000;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 0.7;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 :global(.ASS-container) {

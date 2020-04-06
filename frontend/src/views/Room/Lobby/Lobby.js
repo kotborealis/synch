@@ -12,11 +12,10 @@ export const ViewRoomLobby = () => {
     const [room, setRoom] = useState({});
 
     useEffect(() => {
-        api.send('cinema', 'get', roomId).then(data => setRoom(data));
+        api.send('cinema', 'get', {room: roomId}).then(data => setRoom(data));
     });
 
     const onJoin = async () => {
-        await api.send('cinema', 'join', roomId);
         history.push(`/room/${roomId}/watch`);
     };
 

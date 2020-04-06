@@ -12,17 +12,17 @@ module.exports = function(config) {
     }
 
     async function get(req) {
-        req.send(await CinemaRoom.findById(req.data));
+        req.send(await CinemaRoom.findById(req.data.room));
     }
 
     async function join(req) {
-        await CinemaRoom.findByIdAndUpdate(req.data, {$addToSet: {clients: req.client.id}});
-        req.emit('playback', await CinemaRoom.findById(req.data));
+        await CinemaRoom.findByIdAndUpdate(req.data.room, {$addToSet: {clients: req.client.id}});
+        req.emit('playback', await CinemaRoom.findById(req.data.room));
         req.status();
     }
 
     async function leave(req) {
-        await CinemaRoom.findByIdAndUpdate(req.data, {$pull: {clients: req.client.id}});
+        await CinemaRoom.findByIdAndUpdate(req.data.room, {$pull: {clients: req.client.id}});
         req.status();
     }
 
@@ -37,7 +37,7 @@ module.exports = function(config) {
     }
 
     async function play(req) {
-        const room = await CinemaRoom.findById(req.data);
+        const room = await CinemaRoom.findById(req.data.room);
 
         if(room.playback_started === 0) {
             room.playback_started = Date.now();
@@ -49,7 +49,7 @@ module.exports = function(config) {
     }
 
     async function pause(req) {
-        const room = await CinemaRoom.findById(req.data);
+        const room = await CinemaRoom.findById(req.data.room);
 
         room.stream_start = room.time;
         room.playback_started = 0;
@@ -58,6 +58,20 @@ module.exports = function(config) {
         await room.save();
 
         req.status();
+    }
+
+    async function seekTo(req) {
+        const room = await CinemaRoom.findById(req.data.room);
+
+        if(room.playing) {
+            room.playback_started = Date.now();
+        }
+
+        room.stream_start = Math.max(0, req.data.time);
+
+        await syncRoom(room);
+
+        await room.save();
     }
 
     const syncRoom = room =>
@@ -74,7 +88,8 @@ module.exports = function(config) {
                 leave,
                 unsub,
                 play,
-                pause
+                pause,
+                seekTo
             }
         }
     });
