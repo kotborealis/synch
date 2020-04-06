@@ -45,6 +45,13 @@ class Router {
             logger.info(`Started server on ${this.server.address().port}!`);
         });
 
+        this.service.transport.emit({
+                channel: 'internal',
+                target: '*'
+            },
+            'router-discovery',
+        );
+
         this.startKeepAliveClients(config.server.keepAliveInterval);
 
         process.on('SIGINT', async () => {
@@ -100,6 +107,7 @@ class Router {
                 data: 'channel-not-found',
                 msg_id: message.msg_id
             });
+            return;
         }
 
         if(message.event === 'sub'){
@@ -168,13 +176,27 @@ class Router {
     }
 
     serviceRegisterHandler({data}) {
-        const info = {
-            require_auth: true,
-            require_ratelimit: false,
-            ...data
-        };
-        this.logger.info(`register service ${info.name}`);
-        this.channelsInfo.set(info.name, info);
+        this.logger.info(`register service ${data.name}`);
+        this.channelsInfo.set(data.name, data);
+
+        for(let client of this.clients.values()){
+            if(client.subs.has(data.name)){
+                this.service.transport.emit({
+                        channel: 'public',
+                        target: data.name
+                    },
+                    'sub',
+                    {
+                        id: client.id,
+                        auth: client.auth,
+                        channel: data.name,
+                        event: 'sub',
+                        data: null,
+                        msg_id: -1
+                    }
+                );
+            }
+        }
     }
 }
 

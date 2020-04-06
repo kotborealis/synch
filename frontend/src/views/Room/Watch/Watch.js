@@ -23,6 +23,7 @@ export const ViewRoomWatch = () => {
         api.send('cinema', 'get', roomId).then(room => {
             setRoom(room);
         });
+        return () => api.send('cinema', 'leave', roomId);
     }, []);
 
     const onPlay = () => api.send('cinema', 'play', roomId);

@@ -19,6 +19,9 @@ class Service {
     // client id -> ServiceClient
     clients = new Map;
 
+    ratelimit = false;
+    name;
+
     /**
      *
      * @param redis Redis config
@@ -31,8 +34,8 @@ class Service {
                     config: {redis} = {},
                     name,
                     handlers: {
-                        public: handlersPublic,
-                        internal: handlersInternal
+                        public: handlersPublic = {},
+                        internal: handlersInternal = {}
                     } = {},
                     ratelimit = true
                 }) {
@@ -41,6 +44,7 @@ class Service {
 
         if(!name) throw new Error('Service requires name');
 
+        this.ratelimit = ratelimit;
         this.name = name;
 
         this.logger = require('../logger')(`Service::${name}`);
@@ -51,15 +55,22 @@ class Service {
         this.handlers.public = handlersPublic;
         this.handlers.internal = handlersInternal;
 
+        this.handlers.internal['router-discovery'] = this.registration.bind(this);
+
         const {transport} = this;
         transport.on({channel: 'public'},
             this.handleMessage.bind(this));
         transport.on({channel: 'internal', broadcast: true},
             this.handleInternalMessage.bind(this));
 
+        this.registration();
+    }
+
+    registration(){
+        this.logger.info(`Registering service`);
         this.emit_internal('router', 'service-register', {
-            name,
-            require_ratelimit: ratelimit
+            name: this.name,
+            require_ratelimit: this.ratelimit
         });
     }
 

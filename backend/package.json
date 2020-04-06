@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "cinema": "node ./services/cinema"
   },
   "dependencies": {
     "chen.js": "^2.0.2",
