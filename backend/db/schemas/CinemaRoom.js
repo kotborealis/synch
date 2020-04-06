@@ -6,7 +6,21 @@ const CinemaRoomScheme = mongoose.Schema({
         required: true
     },
     subtitles: {
-        type: String,
+        type: {
+            url: {
+                type: String,
+                required: false,
+            },
+            data: {
+                type: String,
+                required: false,
+            },
+            format: {
+                type: String,
+                enum: ['vtt', 'ass'],
+                required: false,
+            },
+        },
         required: false
     },
     cover: {

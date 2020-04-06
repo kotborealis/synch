@@ -1,10 +1,11 @@
-const {ServiceClient} = require('../../lib/service');
+const {loadSubtitles} = require('./loadSubtitles');
 const {CinemaRoom} = require('../../db');
 const {Service} = require('../../lib/service');
 
 module.exports = function(config) {
 
     async function create(req) {
+        req.data.subtitles = await loadSubtitles(req.data.subtitles);
         const room = new CinemaRoom(req.data);
         await room.save();
         req.send(room);

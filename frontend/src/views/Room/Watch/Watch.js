@@ -2,12 +2,15 @@ import Button from '@material-ui/core/Button';
 import React, {useEffect, useState, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 import api from '../../../api';
+import {useSubtitles} from '../../../lib/SubtitlesManager';
+import styles from './Watch.less';
 
 export const ViewRoomWatch = () => {
     const {roomId} = useParams();
     const [room, setRoom] = useState({});
 
     const video = useRef();
+    useSubtitles(video, room.subtitles);
 
     useEffect(() => {
         api.on('cinema', 'playback', (room) => {
@@ -29,8 +32,9 @@ export const ViewRoomWatch = () => {
     const onPlay = () => api.send('cinema', 'play', roomId);
     const onPause = () => api.send('cinema', 'pause', roomId);
 
+
     return (
-        <>
+        <div className={styles.cinemaVideoContainer}>
             <video
                 ref={video}
                 preload="auto"
@@ -42,6 +46,6 @@ export const ViewRoomWatch = () => {
             <Button variant="contained" color="primary" onClick={onPause}>
                 Pause
             </Button>
-        </>
+        </div>
     );
 };

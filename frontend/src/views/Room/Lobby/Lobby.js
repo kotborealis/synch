@@ -23,7 +23,6 @@ export const ViewRoomLobby = () => {
     return (<Container maxWidth="lg">
         <Paper elevation={3}>
             <Typography component="h1" variant="h5">Stream: {room.stream}</Typography>
-            <Typography component="h1" variant="h5">Subtitles: {room.subtitles}</Typography>
             <Typography component="h1" variant="h5">Title: {room.title}</Typography>
             <Typography component="h1" variant="h5">Cover: {room.cover}</Typography>
             <Typography component="h1" variant="h5">Description: {room.description}</Typography>
