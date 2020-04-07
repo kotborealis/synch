@@ -14,8 +14,7 @@ module.exports = (env = {prod: false}) => {
             app: path.join(__dirname, '../src/index.js'),
             vendor: [
                 'react',
-                'react-dom',
-                'react-router',
+                'react-dom'
             ],
         },
 
