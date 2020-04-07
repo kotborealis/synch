@@ -4,68 +4,88 @@ import IconButton from '@material-ui/core/IconButton';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Grid from '@material-ui/core/Grid';
-import {VolumeDown, VolumeUp} from '@material-ui/icons';
+import {VolumeDown, VolumeUp, VolumeOff} from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
 import {secondsToTime} from '../../../lib/time';
 
 export const Controls =
     ({
-         video,
          room,
+         videoTime: {current: time, duration},
+         volume,
          onPlay = () => 0,
          onPause = () => 0,
          onSeek = () => 0,
+         onMute = () => 0,
+         onVolume = () => 0,
      } = {}) => {
-        const [time, setTime] = useState(0);
         const [seekTo, setSeekTo] = useState(0);
-        const [duration, setDuration] = useState(0);
-        const [userControl, setUserControl] = useState(false);
+        const [seeking, setSeeking] = useState(false);
 
-        useEffect(() => {
-            setInterval(() => {
-                if(!video.current) return;
+        let VolumeIcon = VolumeDown;
+        if(volume > 0.5) VolumeIcon = VolumeUp;
+        else if(volume === 0) VolumeIcon = VolumeOff;
 
-                setTime(video.current.currentTime);
-                setDuration(video.current.duration);
-            }, 500);
-        }, []);
+        return (<Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            className={styles.controls}>
 
-        return (<div className={styles.controls}>
-            <IconButton onClick={room.playing ? onPause : onPlay}>
-                {room.playing ? <PauseIcon/> : <PlayArrowIcon/>}
-            </IconButton>
-
-            <Grid container spacing={2}>
-                <Grid item xs>
-                    <Slider
-                        value={userControl ? seekTo : time}
-                        valueLabelDisplay="auto"
-                        valueLabelFormat={secondsToTime}
-                        min={0}
-                        max={duration}
-                        onMouseDownCapture={() => {
-                            setSeekTo(time);
-                            setUserControl(true);
-                        }}
-                        onChange={(_, value) => setSeekTo(value)}
-                        onChangeCommitted={() => {
-                            setUserControl(false);
-                            onSeek(seekTo);
-                        }}
-                    />
+            <Grid item xs={5}>
+                <Grid container
+                      direction="row"
+                      justify="space-around"
+                      alignItems="center"
+                >
+                    <Grid item xs={1}>
+                        <IconButton onClick={room.playing ? onPause : onPlay}>
+                            {room.playing ? <PauseIcon/> : <PlayArrowIcon/>}
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={10}>
+                        <Slider
+                            value={seeking ? seekTo : time}
+                            valueLabelDisplay="auto"
+                            valueLabelFormat={secondsToTime}
+                            min={0}
+                            max={duration}
+                            onMouseDownCapture={() => {
+                                setSeekTo(time);
+                                setSeeking(true);
+                            }}
+                            onChange={(_, value) => setSeekTo(value)}
+                            onChangeCommitted={() => {
+                                setTimeout(() => setSeeking(false), 500);
+                                onSeek(seekTo);
+                            }}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
 
-            <Grid container spacing={2}>
-                <Grid item>
-                    <VolumeDown/>
-                </Grid>
-                <Grid item xs>
-                    <Slider/>
-                </Grid>
-                <Grid item>
-                    <VolumeUp/>
+            <Grid item xs={2}>
+                <Grid container
+                      direction="row"
+                      justify="space-evenly"
+                      alignItems="center"
+                >
+                    <Grid item>
+                        <IconButton onClick={onMute}>
+                            <VolumeIcon/>
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            value={volume}
+                            onChange={(_, value) => onVolume(value)}
+                            min={0}
+                            max={1}
+                            step={0.01}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
-        </div>);
+        </Grid>);
     };

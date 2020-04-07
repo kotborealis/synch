@@ -154,4 +154,4 @@ function Storage(prefix) {
     };
 }
 
-export default new Storage('lc');
+export default new Storage('lynch');
