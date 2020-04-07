@@ -1,6 +1,6 @@
 let __msg_id = 0;
 
-module.exports = function(ws, token) {
+export default function(ws, token) {
     const channels_sub = new Set;
     const channels_desired_sub = new Set;
 
