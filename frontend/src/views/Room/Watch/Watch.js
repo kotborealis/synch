@@ -11,6 +11,7 @@ export const ViewRoomWatch = () => {
     const {roomId} = useParams();
     const [room, setRoom] = useState({});
     const [volume, setVolume] = useStorage(`volume`, {value: 1, mute: false});
+    const [fullscreen, setFullscreen] = useState(false);
 
     const video = useRef();
     useSubtitles(video, room.subtitles);
@@ -18,10 +19,11 @@ export const ViewRoomWatch = () => {
     useEffect(() => {
         api.on('cinema', 'playback', (room) => {
             setRoom(room);
-            if(video.current)
+            if(video.current){
                 video.current.currentTime = room.time;
                 if(room.playing) video.current.play();
                 else video.current.pause();
+            }
         });
     }, []);
 
@@ -35,21 +37,35 @@ export const ViewRoomWatch = () => {
 
     const [videoTime, setVideoTime] = useState({current: 0, duration: 0});
 
-    useEffect(() => {
-        if(video.current)
-            video.current.addEventListener('timeupdate', () =>
+    useEffect(() =>
+            video.current?.addEventListener('timeupdate', () =>
                 setVideoTime({
                     current: video.current.currentTime,
                     duration: video.current.duration
                 })
-            );
-    }, [video.current]);
+            )
+    , [video.current]);
 
     useEffect(() => {
-        console.log("SET VOLUME", volume, volume.mute ? 0 : volume.value);
         if(video.current)
             video.current.volume = volume.mute ? 0 : volume.value;
     }, [volume.value, volume.mute]);
+
+    useEffect(() => {
+        const events = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange'];
+        events.forEach(e => document.addEventListener(e, onFullscreenChange));
+
+        return () => events.forEach(e => document.removeEventListener(e, onFullscreenChange));
+    }, []);
+
+
+    const onFullscreenChange = () => {
+        const fullscreen = document.fullscreenElement
+                           || document.mozFullScreenElement
+                           || document.webkitFullscreenElement;
+
+        setFullscreen(fullscreen);
+    };
 
 
     const onPlay = () => api.send('cinema', 'play', {room: roomId});
@@ -57,6 +73,18 @@ export const ViewRoomWatch = () => {
     const onSeek = (time) => api.send('cinema', 'seekTo', {room: roomId, time});
     const onVolume = (value) => setVolume({...volume, value, mute: false});
     const onMute = () => setVolume({...volume, mute: !volume.mute});
+    const onFullscreen = () => {
+        if(fullscreen){
+            document.cancelFullScreen?.();
+            document.mozCancelFullScreen?.();
+            document.webkitCancelFullScreen?.();
+        }
+        else{
+            document.body.requestFullscreen?.();
+            document.body.mozRequestFullscreen?.();
+            document.body.webkitRequestFullscreen?.();
+        }
+    };
 
     return (
         <div className={styles.videoContainer}>
@@ -69,11 +97,13 @@ export const ViewRoomWatch = () => {
                 room={room}
                 videoTime={videoTime}
                 volume={volume.mute ? 0 : volume.value}
+                fullscreen={fullscreen}
                 onPause={onPause}
                 onPlay={onPlay}
                 onSeek={onSeek}
                 onVolume={onVolume}
                 onMute={onMute}
+                onFullscreen={onFullscreen}
             />
         </div>
     );
@@ -81,6 +111,5 @@ export const ViewRoomWatch = () => {
 
 // TODO
 // Autoplay manager
-// Sound control
 // interface
 // local files

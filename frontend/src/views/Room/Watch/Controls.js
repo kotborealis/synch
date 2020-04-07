@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Grid from '@material-ui/core/Grid';
-import {VolumeDown, VolumeUp, VolumeOff} from '@material-ui/icons';
+import {VolumeDown, VolumeUp, VolumeOff, Fullscreen, FullscreenExit} from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
 import {secondsToTime} from '../../../lib/time';
 
@@ -18,6 +18,8 @@ export const Controls =
          onSeek = () => 0,
          onMute = () => 0,
          onVolume = () => 0,
+         fullscreen,
+         onFullscreen = () => 0,
      } = {}) => {
         const [seekTo, setSeekTo] = useState(0);
         const [seeking, setSeeking] = useState(false);
@@ -86,6 +88,12 @@ export const Controls =
                         />
                     </Grid>
                 </Grid>
+            </Grid>
+
+            <Grid item xs={1}>
+                <IconButton onClick={onFullscreen}>
+                    {fullscreen ? <FullscreenExit/> : <Fullscreen/>}
+                </IconButton>
             </Grid>
         </Grid>);
     };
