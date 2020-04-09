@@ -4,9 +4,21 @@ import styles from './styles.less';
 import {Controls} from './Controls';
 import {useStorage} from '../../lib/StorageHooks';
 
-export const Player = ({room, videoTime, setVideoTime, onPause, onPlay, onSeek}) => {
+export const Player = ({
+                           room,
+                           onPause,
+                           onPlay,
+                           onSeek,
+                           initialMute = false
+                       }) => {
+    const [initialMuteState, setInitialMuteState] = useState(initialMute);
+    console.log("INITIAL MUTE ", initialMuteState);
+
+    const [videoTime, setVideoTime] = useState({current: 0, duration: 0});
     const [volume, setVolume] = useStorage(`volume`, {value: 1, mute: false});
     const [fullscreen, setFullscreen] = useState(false);
+
+    const volumeValue = () => (volume.mute || initialMuteState) ? 0 : volume.value;
 
     const video = useRef();
     useSubtitles(video, room.subtitles);
@@ -31,7 +43,7 @@ export const Player = ({room, videoTime, setVideoTime, onPause, onPlay, onSeek})
 
     useEffect(() => {
         if(video.current)
-            video.current.volume = volume.mute ? 0 : volume.value;
+            video.current.volume = volumeValue();
     }, [volume.value, volume.mute]);
 
     useEffect(() => {
@@ -50,7 +62,10 @@ export const Player = ({room, videoTime, setVideoTime, onPause, onPlay, onSeek})
         setFullscreen(fullscreen);
     };
 
-    const onVolume = (value) => setVolume({...volume, value, mute: false});
+    const onVolume = (value) => {
+        setInitialMuteState(false);
+        setVolume({...volume, value, mute: false});
+    }
     const onMute = () => setVolume({...volume, mute: !volume.mute});
     const onFullscreen = () => {
         if(fullscreen){
@@ -75,7 +90,7 @@ export const Player = ({room, videoTime, setVideoTime, onPause, onPlay, onSeek})
             <Controls
                 room={room}
                 videoTime={videoTime}
-                volume={volume.mute ? 0 : volume.value}
+                volume={volumeValue()}
                 fullscreen={fullscreen}
                 onPause={onPause}
                 onPlay={onPlay}

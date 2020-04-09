@@ -2,13 +2,14 @@ import React, {useEffect, useState, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 import api from '../../../api';
 import {Player} from '../../../components/Player/Player';
+import styles from './styles.less';
 
 export const ViewRoomWatch = () => {
     const {roomId} = useParams();
     const [room, setRoom] = useState({});
 
     useEffect(() =>
-        api.on('cinema', 'playback', (room) => setRoom(room)),
+            api.on('cinema', 'playback', (room) => setRoom(room)),
         []
     );
 
@@ -26,14 +27,16 @@ export const ViewRoomWatch = () => {
     const onPause = () => api.send('cinema', 'pause', {room: roomId});
     const onSeek = (time) => api.send('cinema', 'seekTo', {room: roomId, time});
 
-    return (<Player
-        room={room}
-        videoTime={videoTime}
-        setVideoTime={setVideoTime}
-        onPlay={onPlay}
-        onPause={onPause}
-        onSeek={onSeek}
-    />);
+    return (<div className={styles.container}>
+        <Player
+            room={room}
+            videoTime={videoTime}
+            setVideoTime={setVideoTime}
+            onPlay={onPlay}
+            onPause={onPause}
+            onSeek={onSeek}
+        />
+    </div>);
 };
 
 // TODO

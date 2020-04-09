@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import api from '../../../api';
 import Container from '@material-ui/core/Container';
-import {Movie} from '../../../components/Movie/Movie';
+import {MoviePreview} from '../../../components/MoviePreview/MoviePreview';
 
 export const ViewRoomLobby = () => {
     const history = useHistory();
@@ -21,6 +21,6 @@ export const ViewRoomLobby = () => {
     };
 
     return (<Container maxWidth="lg">
-        <Movie room={room}/>
+        <MoviePreview room={room}/>
     </Container>);
 };

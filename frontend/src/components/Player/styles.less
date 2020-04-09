@@ -1,23 +1,20 @@
-.videoContainer, .videoContainer video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 0;
-  margin: 0;
+.videoContainer {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.videoContainer video {
   width: 100%;
-  height: 100%;
-  z-index: 1900;
 }
 
 .controls {
-  position: fixed;
+  position: absolute;
   right: 0;
   left: 0;
 
   height: 48px;
-  bottom: -24px;
+  bottom: -27px;
 
   background-color: rgba(0, 0, 0, 0);
 
