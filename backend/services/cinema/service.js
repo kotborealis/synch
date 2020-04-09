@@ -74,6 +74,12 @@ module.exports = function(config) {
         await room.save();
     }
 
+    async function sync(req) {
+        const room = await CinemaRoom.findById(req.data.room);
+        req.client.emit('playback', room);
+        req.status();
+    }
+
     const syncRoom = room =>
         room.clients.map(id => service.emit('playback', room, id));
 
@@ -89,7 +95,8 @@ module.exports = function(config) {
                 unsub,
                 play,
                 pause,
-                seekTo
+                seekTo,
+                sync
             }
         }
     });
