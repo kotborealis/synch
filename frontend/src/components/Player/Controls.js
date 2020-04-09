@@ -6,7 +6,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Grid from '@material-ui/core/Grid';
 import {VolumeDown, VolumeUp, VolumeOff, Fullscreen, FullscreenExit} from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
-import {secondsToTime} from '../../../lib/time';
+import {secondsToTime} from '../../lib/time';
 
 export const Controls =
     ({

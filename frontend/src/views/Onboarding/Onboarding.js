@@ -49,31 +49,36 @@ export const ViewOnboarding = () => {
                                        label="Ссылка на видео (h264 + aac/mp3)"
                                        variant="outlined"
                                        helperText="h264 + aac/mp3 для лучшей совместимости"
+                                       fullWidth
                             />
 
                             <TextField inputRef={register}
                                        name="subtitles"
                                        label="Ссылка на субтитры (ass/srt/vtt)"
                                        variant="outlined"
+                                       fullWidth
                            />
                             <TextField
                                 inputRef={register}
                                 name="cover"
                                 label="Обложка"
                                 variant="outlined"
+                                fullWidth
                             />
                             <TextField inputRef={register}
                                        name="title"
                                        label="Название"
                                        variant="outlined"
+                                       fullWidth
                             />
                             <TextField inputRef={register}
                                        name="description"
                                        label="Описание"
                                        variant="outlined"
+                                       fullWidth
                             />
                             <Button type="submit" variant="contained" color="primary">
-                                Create
+                                Создать
                             </Button>
                         </form>
                     </Paper>
