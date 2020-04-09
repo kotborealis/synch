@@ -35,62 +35,45 @@ export const Controls =
             alignItems="center"
             className={styles.controls}>
 
-            <Grid item xs={5}>
-                <Grid container
-                      direction="row"
-                      justify="space-around"
-                      alignItems="center"
-                >
-                    <Grid item xs={1}>
-                        <IconButton onClick={room.playing ? onPause : onPlay}>
-                            {room.playing ? <PauseIcon/> : <PlayArrowIcon/>}
-                        </IconButton>
-                    </Grid>
-                    <Grid item xs={10}>
-                        <Slider
-                            value={seeking ? seekTo : time}
-                            valueLabelDisplay="auto"
-                            valueLabelFormat={secondsToTime}
-                            min={0}
-                            max={duration}
-                            onMouseDownCapture={() => {
-                                setSeekTo(time);
-                                setSeeking(true);
-                            }}
-                            onChange={(_, value) => setSeekTo(value)}
-                            onChangeCommitted={() => {
-                                setTimeout(() => setSeeking(false), 500);
-                                onSeek(seekTo);
-                            }}
-                        />
-                    </Grid>
-                </Grid>
+            <Grid item>
+                <IconButton onClick={room.playing ? onPause : onPlay}>
+                    {room.playing ? <PauseIcon/> : <PlayArrowIcon/>}
+                </IconButton>
+            </Grid>
+            <Grid item className={styles.seekControl}>
+                <Slider
+                    value={seeking ? seekTo : time}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={secondsToTime}
+                    min={0}
+                    max={duration}
+                    onMouseDownCapture={() => {
+                        setSeekTo(time);
+                        setSeeking(true);
+                    }}
+                    onChange={(_, value) => setSeekTo(value)}
+                    onChangeCommitted={() => {
+                        setTimeout(() => setSeeking(false), 500);
+                        onSeek(seekTo);
+                    }}
+                />
             </Grid>
 
-            <Grid item xs={2}>
-                <Grid container
-                      direction="row"
-                      justify="space-evenly"
-                      alignItems="center"
-                >
-                    <Grid item>
-                        <IconButton onClick={onMute}>
-                            <VolumeIcon/>
-                        </IconButton>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={volume}
-                            onChange={(_, value) => onVolume(value)}
-                            min={0}
-                            max={1}
-                            step={0.01}
-                        />
-                    </Grid>
-                </Grid>
+            <Grid item>
+                <IconButton onClick={onMute}>
+                    <VolumeIcon/>
+                </IconButton>
             </Grid>
-
-            <Grid item xs={1}>
+            <Grid item className={styles.volumeControl}>
+                <Slider
+                    value={volume}
+                    onChange={(_, value) => onVolume(value)}
+                    min={0}
+                    max={1}
+                    step={0.01}
+                />
+            </Grid>
+            <Grid item>
                 <IconButton onClick={onFullscreen}>
                     {fullscreen ? <FullscreenExit/> : <Fullscreen/>}
                 </IconButton>
