@@ -1,7 +1,7 @@
 FROM node:12
 
 RUN apt-get update && \
-    apt-get install -y git graphicsmagick && \
+    apt-get install -y git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -12,6 +12,5 @@ COPY backend/package*.json ./
 RUN npm ci
 
 COPY backend/. .
-COPY common/. /common/.
 
 ENTRYPOINT node /app/index.js
