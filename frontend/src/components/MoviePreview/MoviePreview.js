@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import {PlayerStandalone} from '../PlayerStandalone/PlayerStandalone';
 import Button from '@material-ui/core/Button';
 
-export const MoviePreview = ({room} = {}) => {
+export const MoviePreview = ({room, onJoin} = {}) => {
     return (<Paper elevation={3}>
         <Grid container
               spacing={5}
@@ -19,13 +19,13 @@ export const MoviePreview = ({room} = {}) => {
             <Grid item xs={6}>
                 <Typography>
                     <Typography variant="h3">
-                        {room.title}
+                        {room.title || "Без названия"}
                     </Typography>
                     <Typography>
-                        {room.description}
+                        {room.description || "Без описания"}
                     </Typography>
                 </Typography>
-                <Button type="submit" variant="contained" color="primary">
+                <Button type="submit" variant="contained" color="primary" onClick={onJoin}>
                     Присоединиться к просмотру
                 </Button>
             </Grid>

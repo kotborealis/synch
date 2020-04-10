@@ -21,6 +21,6 @@ export const ViewRoomLobby = () => {
     };
 
     return (<Container maxWidth="lg">
-        <MoviePreview room={room}/>
+        <MoviePreview room={room} onJoin={onJoin}/>
     </Container>);
 };
