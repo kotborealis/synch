@@ -4,6 +4,8 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const mockApi = require('../mock-api');
 
+const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+
 module.exports = (env = {prod: false}) => {
     const ifProd = (plugin, _else = undefined) => env.prod ? plugin : _else;
     const ifDebug = (plugin, _else = undefined) => !env.prod ? plugin : _else;
@@ -21,7 +23,7 @@ module.exports = (env = {prod: false}) => {
         output: {
             filename: ifProd('[hash].[name].js', '[name].js'),
             path: path.join(__dirname, '../build/'),
-            publicPath: '/',
+            publicPath: PUBLIC_PATH,
         },
 
         devtool: ifDebug('cheap-module-eval-source-map'),
