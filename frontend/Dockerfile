@@ -14,7 +14,6 @@ COPY frontend/package*.json ./
 RUN npm ci
 
 COPY frontend/ ./
-COPY common/ /common
 RUN mkdir -p build
 RUN npm run build
 
