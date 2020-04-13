@@ -1,13 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter, matchPath, Route, Switch, withRouter} from 'react-router-dom';
-import Container from '@material-ui/core/Container';
+import {BrowserRouter, matchPath, Route, Switch} from 'react-router-dom';
 import './api';
 import {ViewOnboarding} from './views/Onboarding/Onboarding';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import {ViewRoomLobby} from './views/Room/Lobby/Lobby';
-import {ViewRoomWatch} from './views/Room/Watch/Watch';
+import {ViewRoom} from './views/Room/Room';
 
 const RouterRoot = ({children}) => {
     return (
@@ -22,8 +20,7 @@ const RouterRoot = ({children}) => {
 const Routes = () => {
     return (<>
         <Route exact path="/"><ViewOnboarding/></Route>
-        <Route path="/room/:roomId/lobby"><ViewRoomLobby/></Route>
-        <Route path="/room/:roomId/watch"><ViewRoomWatch/></Route>
+        <Route path="/room/:roomId"><ViewRoom/></Route>
     </>);
 };
 
