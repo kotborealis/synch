@@ -1,10 +1,10 @@
 {
   "name": "pavellcapp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "services/router/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
+    "start": "node services/router/index.js",
     "cinema": "node ./services/cinema"
   },
   "dependencies": {

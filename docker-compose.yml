@@ -8,20 +8,18 @@ services:
         PUBLIC_PATH: "${FRONTEND_PUBLIC_PATH:-/}"
     ports:
       - "${FRONTEND_PUBLIC_PORT:-80}:80"
-    volumes:
-      - usercontent:/usr/share/nginx/html/usercontent/
     networks:
       - internal
     depends_on:
       - backend
     restart: unless-stopped
 
-  backend/router:
+  backend-router:
     build:
       context: ./
-      dockerfile: ./backend/Dockerfile
+      dockerfile: ./backend/services/router/Dockerfile
     env_file:
-      - backend/.env
+      - backend/services/router/.env
     networks:
       - internal
     depends_on:
@@ -29,12 +27,12 @@ services:
       - mongo
     restart: unless-stopped
 
-  backend/cinema:
+  backend-cinema:
     build:
       context: ./
       dockerfile: ./backend/services/cinema/Dockerfile
     env_file:
-      - backend/.env
+      - backend/services/cinema/.env
     networks:
       - internal
     depends_on:

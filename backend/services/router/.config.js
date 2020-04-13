@@ -5,14 +5,9 @@ module.exports = {
         keepAliveInterval: process.env.SERVER_KEEP_ALIVE_INTERVAL || 1000 * 10
     },
 
-    redis: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT || 6379,
-    },
-
     mongo: {
-        host: process.env.MONGO_HOST || 'localhost',
-        db: process.env.MONGO_DB || 'lc'
+        host: process.env.MONGO_HOST || 'mongo',
+        db: process.env.MONGO_DB || 'synch'
     },
 
     logger: {
