@@ -12,7 +12,6 @@ export const Player = ({
                            initialMute = false
                        }) => {
     const [initialMuteState, setInitialMuteState] = useState(initialMute);
-    console.log("INITIAL MUTE ", initialMuteState);
 
     const [videoTime, setVideoTime] = useState({current: 0, duration: 0});
     const [volume, setVolume] = useStorage(`volume`, {value: 1, mute: false});
