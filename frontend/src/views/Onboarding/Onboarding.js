@@ -16,7 +16,7 @@ export const ViewOnboarding = () => {
 
     const onSubmit = async data => {
         const {_id} = await api.send('cinema', 'create', data);
-        history.push(`/room/${_id}/lobby`);
+        history.push(`/room/${_id}`);
     };
 
     return (

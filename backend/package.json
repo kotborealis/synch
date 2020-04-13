@@ -4,8 +4,8 @@
   "main": "services/router/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node services/router/index.js",
-    "cinema": "node ./services/cinema"
+    "start": "cd services/router/ && node index.js",
+    "cinema": "cd services/cinema/ && node index.js"
   },
   "dependencies": {
     "chen.js": "^2.0.2",
