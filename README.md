@@ -2,9 +2,22 @@
 
 Платформа для совместного просмотра кинца и прочей ереси.
 
-![](./docs/Main.png)
-![](./docs/Lobby.png)
-![](./docs/Watch.png)
+<img src="https://github.com/kotborealis/synch/raw/master/docs/Main.png" width="300" title="Landing">
+
+<img src="https://github.com/kotborealis/synch/raw/master/docs/Lobby.png" width="300" title="Lobby">
+
+<img src="https://github.com/kotborealis/synch/raw/master/docs/Watch.png" width="300" title="Watch">
+
+## Зачем оно мне и как этим пользоваться?
+
+Идея Синча в совместном просмотре кинца.
+Чтобы воспользоваться им, нужно иметь:
+
+* Залитый куда-то файл с кинцом, доступный по прямой ссылке.
+* Опционально, такой же файл с субтитрами srt/vtt/ass, доступный по прямой ссылке.
+
+Лучше всего в браузерах поддерживаются видеофайлы с кодеком h264 для видео и aac/mp3 для аудио.
+Лучшая поддержка воспроизведения видеофайлов в Хроме/chromium-based браузерах.
 
 ## Архитектура
 
