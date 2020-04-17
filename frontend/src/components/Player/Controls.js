@@ -1,10 +1,10 @@
 import styles from './styles.less';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Grid from '@material-ui/core/Grid';
-import {VolumeDown, VolumeUp, VolumeOff, Fullscreen, FullscreenExit} from '@material-ui/icons';
+import {Fullscreen, FullscreenExit, VolumeDown, VolumeOff, VolumeUp} from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
 import {secondsToTime} from '../../lib/time';
 

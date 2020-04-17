@@ -57,7 +57,7 @@ export const ViewOnboarding = () => {
                                        label="Ссылка на субтитры (ass/srt/vtt)"
                                        variant="outlined"
                                        fullWidth
-                           />
+                            />
                             <TextField
                                 inputRef={register}
                                 name="cover"

@@ -4,7 +4,7 @@ import {BrowserRouter, matchPath, Route, Switch} from 'react-router-dom';
 import './api';
 import {ViewOnboarding} from './views/Onboarding/Onboarding';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {ViewRoom} from './views/Room/Room';
 
 const RouterRoot = ({children}) => {
@@ -32,7 +32,7 @@ const theme = createMuiTheme({
 
 render(
     <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <CssBaseline/>
         <RouterRoot><Routes/></RouterRoot>
     </ThemeProvider>,
     document.getElementById('App')

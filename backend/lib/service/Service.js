@@ -66,7 +66,7 @@ class Service {
         this.registration();
     }
 
-    registration(){
+    registration() {
         this.logger.info(`Registering service`);
         this.emit_internal('router', 'service-register', {
             name: this.name,
@@ -80,7 +80,7 @@ class Service {
      * @param event Event name
      * @param data Event data
      */
-    emit_internal(target, event, data){
+    emit_internal(target, event, data) {
         this.transport.emit({channel: 'internal', target}, event, data);
     };
 

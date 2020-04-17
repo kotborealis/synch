@@ -35,7 +35,7 @@ class RouterClient {
      * @param data
      * @param msg_id
      */
-    send({channel, event, data = {}, msg_id = undefined}){
+    send({channel, event, data = {}, msg_id = undefined}) {
         this.ws.send(JSON.stringify({
             channel, event, data, msg_id
         }));
@@ -46,7 +46,7 @@ class RouterClient {
      * @param consume_tokens
      * @param fn
      */
-    throttle(consume_tokens, fn){
+    throttle(consume_tokens, fn) {
         const {bucket} = this;
         bucket.throttle(consume_tokens, fn);
     }

@@ -28,7 +28,7 @@ module.exports = function(config) {
 
     async function unsub(req) {
         const rooms = await CinemaRoom.find({
-            clients: { $in: [req.client.id] }
+            clients: {$in: [req.client.id]}
         });
 
         await Promise.all(rooms.map(room =>
@@ -39,7 +39,7 @@ module.exports = function(config) {
     async function play(req) {
         const room = await CinemaRoom.findById(req.data.room);
 
-        if(room.playback_started === 0) {
+        if(room.playback_started === 0){
             room.playback_started = Date.now();
             syncRoom(room);
             await room.save();
@@ -63,7 +63,7 @@ module.exports = function(config) {
     async function seekTo(req) {
         const room = await CinemaRoom.findById(req.data.room);
 
-        if(room.playing) {
+        if(room.playing){
             room.playback_started = Date.now();
         }
 

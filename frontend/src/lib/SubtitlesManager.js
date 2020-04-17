@@ -26,7 +26,7 @@ export const useSubtitles = (ref, {format, data} = {}) => {
 
         return () => {
             if(ass.current) ass.current.destroy();
-        }
+        };
     }, []);
 
     return ref;

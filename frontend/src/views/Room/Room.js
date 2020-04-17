@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import api from '../../api';
 import Container from '@material-ui/core/Container';
 import {MoviePreview} from '../../components/MoviePreview/MoviePreview';
@@ -17,14 +17,14 @@ const RoomLobby = ({roomId, onJoin, localUrl, setLocalUrl}) => {
     const onLocalStream = (e) => {
         const file = e?.target?.files?.[0];
 
-        if(!file) {
+        if(!file){
             setLocalUrl(null);
         }
-        else {
+        else{
             setLocalUrl(URL.createObjectURL(file));
             setLocalName(file?.name);
         }
-    }
+    };
 
     useEffect(() => {
         api.send('cinema', 'get', {room: roomId}).then(data => setRoom(data));

@@ -21,4 +21,4 @@ export const PlayerStandalone = ({room, initialMute = false, autoplay = true}) =
         onSeek={onSeek}
         fullscreenEnabled={false}
     />);
-}
+};

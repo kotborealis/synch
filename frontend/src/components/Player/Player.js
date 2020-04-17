@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSubtitles} from '../../lib/SubtitlesManager';
 import styles from './styles.less';
 import {Controls} from './Controls';
@@ -64,7 +64,7 @@ export const Player = ({
     const onVolume = (value) => {
         setInitialMuteState(false);
         setVolume({...volume, value, mute: false});
-    }
+    };
     const onMute = () => setVolume({...volume, mute: !volume.mute});
     const onFullscreen = () => {
         if(fullscreen){

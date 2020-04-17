@@ -51,7 +51,7 @@ class ServiceRequest {
      * @param event
      * @param data
      */
-    emit(event, data){
+    emit(event, data) {
         this.client.emit(event, data);
     }
 }

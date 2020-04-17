@@ -56,7 +56,7 @@ const CinemaRoomScheme = mongoose.Schema({
     timestamps: true
 });
 
-CinemaRoomScheme.virtual('time').get(function () {
+CinemaRoomScheme.virtual('time').get(function() {
     if(this.playback_started === 0)
         return this.stream_start;
 
@@ -64,10 +64,10 @@ CinemaRoomScheme.virtual('time').get(function () {
     return time_since_start + this.stream_start;
 });
 
-CinemaRoomScheme.virtual('playing').get(function () {
+CinemaRoomScheme.virtual('playing').get(function() {
     return this.playback_started !== 0;
 });
 
-CinemaRoomScheme.set('toJSON', { virtuals: true });
+CinemaRoomScheme.set('toJSON', {virtuals: true});
 
 module.exports = CinemaRoomScheme;

@@ -28,4 +28,4 @@ export const MoviePreview = ({room} = {}) => {
             </Grid>
         </Grid>
     </Paper>);
-}
+};

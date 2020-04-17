@@ -20,7 +20,7 @@ class ServiceClient {
      * @param event
      * @param data
      */
-    emit(event, data){
+    emit(event, data) {
         const {service: {transport}, id: target} = this;
 
         transport.emit({channel: 'internal', target: 'router'},
