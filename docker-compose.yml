@@ -11,7 +11,8 @@ services:
     networks:
       - internal
     depends_on:
-      - backend
+      - backend-router
+      - backend-cinema
     restart: unless-stopped
 
   backend-router:
