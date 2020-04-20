@@ -8,4 +8,5 @@ RUN npm ci
 
 COPY backend/. .
 
+WORKDIR /app/services/cinema
 ENTRYPOINT node /app/services/cinema/index.js

@@ -8,4 +8,5 @@ RUN npm ci
 
 COPY backend/. .
 
+WORKDIR /app/services/router
 ENTRYPOINT node /app/services/router/index.js
