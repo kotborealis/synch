@@ -58,7 +58,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME_FRONTEND $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
       - name: Push image (backend-router)
@@ -80,7 +80,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME_BACKEND_ROUTER $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
           
           
@@ -103,5 +103,5 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME_BACKEND_CINEMA $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
