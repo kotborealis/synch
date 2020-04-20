@@ -22,7 +22,7 @@ env:
 jobs:
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
-  frontend:
+  build:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
@@ -30,7 +30,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker-compose --file docker-compose.yml build
+        run: |
+          touch .env
+          touch backend/services/router/.env
+          touch backend/services/cinema/.env
+          docker-compose --file docker-compose.yml build
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -54,7 +58,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME_FRONTEND $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
       - name: Push image (backend-router)
@@ -76,7 +80,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME_BACKEND_ROUTER $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
           
           
@@ -99,5 +103,5 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME_BACKEND_CINEMA $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
