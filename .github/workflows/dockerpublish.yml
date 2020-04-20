@@ -30,7 +30,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker-compose --file docker-compose.yml build
+        run: |
+          touch .env
+          touch backend/services/router/.env
+          touch backend/services/cinema/.env
+          docker-compose --file docker-compose.yml build
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
