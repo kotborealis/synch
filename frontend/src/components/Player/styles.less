@@ -21,12 +21,6 @@
   z-index: 2000;
   opacity: 0.5;
 
-  &:hover {
-    bottom: 0;
-    opacity: 1;
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
   transition: all 0.25s ease-out;
 
   .seekControl {
@@ -37,6 +31,12 @@
     flex-basis: 200px;
     max-width: 200px;
   }
+}
+
+.controls:hover, .forceHover {
+  bottom: 0;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 :global(.ASS-container) {

@@ -7,10 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import {Fullscreen, FullscreenExit, VolumeDown, VolumeOff, VolumeUp} from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
 import {secondsToTime} from '../../lib/time';
+import {Tooltip} from '@material-ui/core';
 
 export const Controls =
     ({
          room,
+         show = false,
          videoTime: {current: time, duration},
          volume,
          onPlay = () => 0,
@@ -33,12 +35,14 @@ export const Controls =
             direction="row"
             justify="space-between"
             alignItems="center"
-            className={styles.controls}>
-
+            className={`${styles.controls} ${show ? styles.forceHover : ''}`}
+        >
             <Grid item>
-                <IconButton onClick={room.playing ? onPause : onPlay}>
-                    {room.playing ? <PauseIcon/> : <PlayArrowIcon/>}
-                </IconButton>
+                <Tooltip title={"Начать воспроизведение"} open={!room.playing} arrow placement="top">
+                    <IconButton onClick={room.playing ? onPause : onPlay}>
+                        {room.playing ? <PauseIcon/> : <PlayArrowIcon/>}
+                    </IconButton>
+                </Tooltip>
             </Grid>
             <Grid item className={styles.seekControl}>
                 <Slider

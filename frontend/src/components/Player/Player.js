@@ -79,8 +79,23 @@ export const Player = ({
         }
     };
 
+    const [showControls, setShowControls] = useState(false);
+    const [controlsTimeout, setControlsTimeout] = useState(null);
+
+
+    const handleUserActivity = () => {
+        setShowControls(true);
+        controlsTimeout && clearTimeout(controlsTimeout);
+        const tid = setTimeout(() => setShowControls(false), 2000);
+        setControlsTimeout(tid);
+    }
+
     return (
-        <div className={styles.videoContainer}>
+        <div
+            className={styles.videoContainer}
+            onMouseMove={handleUserActivity}
+            onTouchStart={handleUserActivity}
+        >
             <video
                 ref={video}
                 preload="auto"
@@ -88,6 +103,7 @@ export const Player = ({
             />
             <Controls
                 room={room}
+                show={!room.playing || showControls}
                 videoTime={videoTime}
                 volume={volumeValue()}
                 fullscreen={fullscreen}
