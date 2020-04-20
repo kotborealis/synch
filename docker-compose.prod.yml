@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   backend-cinema:
-    image: docker.pkg.github.com/kotborealis/synch/synch_backend-router:latest
+    image: docker.pkg.github.com/kotborealis/synch/synch_backend-cinema:latest
     env_file:
       - backend/services/cinema/.env
     networks:
