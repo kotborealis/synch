@@ -21,6 +21,7 @@
     "@material-ui/icons": "^4.9.1",
     "ass.js": "github:kotborealis/ASS",
     "babel-loader": "^8.0.6",
+    "copy-to-clipboard": "^3.3.1",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",

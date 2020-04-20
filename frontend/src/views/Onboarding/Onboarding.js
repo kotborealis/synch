@@ -6,9 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import api from '../../api';
 import {useHistory} from "react-router-dom";
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import styles from './styles.less';
+import {SynchContainer} from '../../components/SynchContainer/SynchContainer';
 
 export const ViewOnboarding = () => {
     const history = useHistory();
@@ -20,62 +19,42 @@ export const ViewOnboarding = () => {
     };
 
     return (
-        <Container maxWidth="lg">
-            <Grid
-                container
-                spacing={5}
-                direction="column"
-                alignItems="center"
-                justify="center"
-            >
-                <Grid item>
-                    <Typography variant="p" style={{textAlign: "center"}}>
-                        <Typography variant="h1">
-                            David Synch
-                        </Typography>
-                        <Typography variant="h4">
-                            Синхронизированный просмотр трешака
-                        </Typography>
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Paper elevation={5} className={styles.createRoom}>
-                        <Typography variant="h5" style={{textAlign: "center"}}>
-                            Создадим новый кинозал?
-                        </Typography>
-                        <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                            <TextField inputRef={register}
-                                       name="stream"
-                                       label="Ссылка на видео (h264 + aac/mp3)"
-                                       variant="outlined"
-                                       helperText="h264 + aac/mp3 для лучшей совместимости"
-                                       fullWidth
-                            />
+        <SynchContainer>
+            <Paper elevation={5} className={styles.createRoom}>
+                <Typography variant="h5" style={{textAlign: "center"}}>
+                    Создадим новый кинозал?
+                </Typography>
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                    <TextField inputRef={register}
+                               name="stream"
+                               label="Ссылка на видео (h264 + aac/mp3)"
+                               variant="outlined"
+                               helperText="h264 + aac/mp3 для лучшей совместимости"
+                               fullWidth
+                    />
 
-                            <TextField inputRef={register}
-                                       name="subtitles"
-                                       label="Ссылка на субтитры (ass/srt/vtt)"
-                                       variant="outlined"
-                                       fullWidth
-                            />
-                            <TextField inputRef={register}
-                                       name="title"
-                                       label="Название"
-                                       variant="outlined"
-                                       fullWidth
-                            />
-                            <TextField inputRef={register}
-                                       name="description"
-                                       label="Описание"
-                                       variant="outlined"
-                                       fullWidth
-                            />
-                            <Button type="submit" variant="contained" color="primary">
-                                Создать
-                            </Button>
-                        </form>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container>);
+                    <TextField inputRef={register}
+                               name="subtitles"
+                               label="Ссылка на субтитры (ass/srt/vtt)"
+                               variant="outlined"
+                               fullWidth
+                    />
+                    <TextField inputRef={register}
+                               name="title"
+                               label="Название"
+                               variant="outlined"
+                               fullWidth
+                    />
+                    <TextField inputRef={register}
+                               name="description"
+                               label="Описание"
+                               variant="outlined"
+                               fullWidth
+                    />
+                    <Button type="submit" variant="contained" color="primary">
+                        Создать
+                    </Button>
+                </form>
+            </Paper>
+        </SynchContainer>);
 };
