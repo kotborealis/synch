@@ -58,13 +58,6 @@ export const ViewOnboarding = () => {
                                        variant="outlined"
                                        fullWidth
                             />
-                            <TextField
-                                inputRef={register}
-                                name="cover"
-                                label="Обложка"
-                                variant="outlined"
-                                fullWidth
-                            />
                             <TextField inputRef={register}
                                        name="title"
                                        label="Название"

@@ -23,10 +23,6 @@ const CinemaRoomScheme = mongoose.Schema({
         },
         required: false
     },
-    cover: {
-        type: String,
-        required: false
-    },
     title: {
         type: String,
         require: false
