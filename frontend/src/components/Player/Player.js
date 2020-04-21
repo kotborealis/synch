@@ -33,8 +33,8 @@ export const Player = ({
     useEffect(() =>
             video.current?.addEventListener('timeupdate', () =>
                 setVideoTime({
-                    current: video.current.currentTime,
-                    duration: video.current.duration
+                    current: video.current?.currentTime ?? 0,
+                    duration: video.current?.duration ?? 0
                 })
             ),
         [video.current]
