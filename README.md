@@ -1,4 +1,4 @@
-# David Synch
+ David Synch
 
 Платформа для совместного просмотра кинца и прочей ереси.
 
@@ -60,7 +60,7 @@
     cd frontend
     npm start
     ```
-  
+
 ### Note on another reverse-proxy
 
 If you run *yet another* reverse-proxy (like nginx) on top of
@@ -77,12 +77,10 @@ location /ws.lc/ {
 
 ## Deployment
 
-* Set backend configuration in `./backend/.env` (see `./backend/stub.env` and `./backend/.config.js` for reference).
-* Set configuration in `./.env` (see `./docker-compose.yml` for reference).
-* Run:
+* Minimal:
     ```
-    docker-compose up -d redis mongo
-    docker-compose up backend-router
-    docker-compose up backend-cinema
-    docker-compose up frontend
+    touch backend/services/router/.env
+    touch backend/services/cinema/.env
+    docker-compose up
     ```
+* Default configs should be just fine.
